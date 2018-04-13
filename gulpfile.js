@@ -12,6 +12,7 @@ const browserSync = require('browser-sync');
 const source = require('vinyl-source-stream');
 const htmlmin = require('gulp-htmlmin');
 const buffer = require('vinyl-buffer');
+const runSequence = require('run-sequence');
 
 gulp.task('sass', () => {
   gulp.src('./src/**/*.scss')
@@ -28,7 +29,7 @@ gulp.task('sass', () => {
 gulp.task('js-lint', () => {
   gulp.src('./src/**.js')
     .pipe(eslint())
-    .pipe(eslint.format())  
+    .pipe(eslint.format())
     .pipe(eslint.failAfterError());
 });
 
@@ -61,13 +62,14 @@ gulp.task('html', () => {
     .pipe(browserSync.reload({stream: true}));
 });
 
-gulp.task('watch', () => {
+gulp.task('watch', (cb) => {
   gulp.watch('./src/**/*.js', ['js-lint', 'js-build']);
   gulp.watch('./src/**/*.scss', ['sass']);
   gulp.watch('./**/*.html', ['html']);
 });
 
-gulp.task('default', ['js-lint', 'js-build', 'sass', 'html', 'watch', 'browser-sync']);
+gulp.task('default',
+          ['js-lint', 'js-build', 'sass', 'html', 'watch', 'browser-sync']);
 
 gulp.task('sass-dist', () => {
   gulp.src('./src/**/*.scss')
