@@ -1,16 +1,18 @@
-let myMap = 1;
-let myPlacemark;
-
 ymaps.ready(() => {
-  myMap = new ymaps.Map('map', {
-    center: [55.76, 37.64],
+  let placemark;
+
+  const myMap = new ymaps.Map('map', {
+    center: [55.76, 99.64],
     zoom: 7,
   });
 
-  myPlacemark = new ymaps.Placemark([55.76, 37.64], {
-    hintContent: 'Москва!',
-    balloonContent: 'Столица России',
+  myMap.events.add('click', (e) => {
+    const coords = e.get('coords');
+    if (placemark) {
+      placemark.geometry.setCoordinates(coords);
+    } else {
+      placemark = new ymaps.Placemark(coords, {});
+      myMap.geoObjects.add(placemark);
+    }
   });
-
-  myMap.geoObjects.add(myPlacemark);
 });
