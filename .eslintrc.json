@@ -5,7 +5,10 @@
         "jsx-a11y",
         "import"
     ],
-    "globals": {"ymaps": false},
+    "globals": {
+        "ymaps": false,
+        "config": false
+    },
     "rules": {
         "no-use-before-define": [0],
         "no-console": [0]
