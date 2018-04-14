@@ -1,14 +1,14 @@
 import hb from 'handlebars';
 
-const template = hb.compile(document.getElementById('weather-template').innerHTML);;
+const template = hb.compile(document.getElementById('weather-template').innerHTML);
 const weather = document.getElementById('weather');
 
 function httpGet(url) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
-    xhr.onload = function() {
-      if (this.status == 200) {
+    xhr.onload = function () {
+      if (this.status === 200) {
         resolve(this.response);
       } else {
         const err = new Error(this.statusText);
@@ -22,8 +22,8 @@ function httpGet(url) {
 }
 
 function getWeather(lat, lon) {
-  return httpGet(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${config.owmid}`);
-};
+  return httpGet(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${config.owmid}&units=metric`);
+}
 
 function renderWeather(dataStr) {
   const data = JSON.parse(dataStr);
