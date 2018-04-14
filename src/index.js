@@ -44,9 +44,7 @@ ymaps.ready(() => {
         return getWeather(latitude, longitude);
       },
       (err) => {console.log(err);}
-    ).then((res) => {
-      renderWeather();
-    });
+    ).then( (res) => { return renderWeather(res); });
 
   const myMap = new ymaps.Map('map', {
     center: [55.76, 99.64],
