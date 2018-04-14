@@ -59,5 +59,6 @@ ymaps.ready(() => {
       placemark = new ymaps.Placemark(coords, {});
       myMap.geoObjects.add(placemark);
     }
+    getWeather(...coords).then(renderWeather);
   });
 });
