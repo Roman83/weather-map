@@ -36,20 +36,20 @@ function renderWeather(dataStr) {
 
 ymaps.ready(() => {
   let placemark;
+  const myMap = new ymaps.Map('map', {
+    center: [55.76, 99.64],
+    zoom: 7,
+  });
 
   httpGet('https://freegeoip.net/json/')
     .then(
       (res) => {
         const {latitude, longitude} = JSON.parse(res);
+        myMap.setCenter([latitude, longitude]);
         return getWeather(latitude, longitude);
       },
       (err) => {console.log(err);}
     ).then( (res) => { return renderWeather(res); });
-
-  const myMap = new ymaps.Map('map', {
-    center: [55.76, 99.64],
-    zoom: 7,
-  });
 
   myMap.events.add('click', (e) => {
     const coords = e.get('coords');
