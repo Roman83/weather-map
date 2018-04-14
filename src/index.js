@@ -1,3 +1,8 @@
+import hb from 'handlebars';
+
+const template = hb.compile(document.getElementById('weather-template').innerHTML);;
+const weather = document.getElementById('weather');
+
 function httpGet(url) {
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
@@ -16,19 +21,32 @@ function httpGet(url) {
   });
 }
 
+function getWeather(lat, lon) {
+  return httpGet(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${config.owmid}`);
+};
+
+function renderWeather(dataStr) {
+  const data = JSON.parse(dataStr);
+  console.log(data);
+  weather.innerHTML = template({
+    title: data.name,
+    temp: data.main.temp,
+  });
+}
+
 ymaps.ready(() => {
   let placemark;
 
   httpGet('https://freegeoip.net/json/')
     .then(
       (res) => {
-        console.log(res);
-        const {latitude, longitude, city} = JSON.parse(res);
-        console.log(city);
-        return httpGet(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${config.owmid}`)
+        const {latitude, longitude} = JSON.parse(res);
+        return getWeather(latitude, longitude);
       },
       (err) => {console.log(err);}
-    ).then((res) => {console.log(res);});
+    ).then((res) => {
+      renderWeather();
+    });
 
   const myMap = new ymaps.Map('map', {
     center: [55.76, 99.64],

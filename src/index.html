@@ -8,7 +8,12 @@
   </head>
   <body>
     <div id="map" style="width: 600px; height: 400px"></div>
+    <div id="weather"></div>
 
+    <script id="weather-template" type="text/x-handlebars-template">
+        <h1>{{title}}</h1>
+        Temperature: {{temp}}
+    </script>
     <script src="config.js" type="text/javascript"></script>
     <script src="index.js" type="text/javascript"></script>
   </body>
