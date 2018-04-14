@@ -33,7 +33,7 @@ function renderWeather(dataStr) {
     country: data.sys.country,
     temp: data.main.temp,
     humidity: data.main.humidity,
-    pressure: data.main.pressure,
+    pressure: Math.round(data.main.pressure / 1.333224),
     alt: data.weather[0].description,
     src: `http://openweathermap.org/img/w/${data.weather[0].icon}.png`,
     desc: data.weather[0].description,
