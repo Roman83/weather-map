@@ -40,16 +40,12 @@ ymaps.ready(() => {
     center: [55.76, 99.64],
     zoom: 7,
   });
-
-  httpGet('https://freegeoip.net/json/')
-    .then(
-      (res) => {
-        const {latitude, longitude} = JSON.parse(res);
-        myMap.setCenter([latitude, longitude]);
-        return getWeather(latitude, longitude);
-      },
-      (err) => {console.log(err);}
-    ).then( (res) => { return renderWeather(res); });
+  ymaps.geolocation.get().then((res) => {
+    console.log(res);
+    const coords = res.geoObjects.position;
+    myMap.setCenter(coords);
+    return getWeather(...coords);
+  }).then(renderWeather);
 
   myMap.events.add('click', (e) => {
     const coords = e.get('coords');
