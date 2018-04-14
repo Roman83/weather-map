@@ -2,19 +2,23 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript">
     </script>
+    <link href="style.css" rel="stylesheet"/>
   </head>
   <body>
-    <div id="map" style="width: 600px; height: 400px"></div>
-    <div id="weather"></div>
+    <div class="container">
+      <div id="map" style="width: 600px; height: 400px"></div>
+      <div id="weather"></div>
+    </div>
 
     <script id="weather-template" type="text/x-handlebars-template">
         <h1>{{city}} ({{country}})</h1>
-        Temperature: {{temp}}&deg;C</br>
-        Pressure: {{pressure}} </br>
-        Humidity: {{humidity}}% </br>
+        Temperature: <span class="value">{{temp}}&deg;C</span> </br>
+        Pressure: <span class="value">{{pressure}}</span> </br>
+        Humidity: <span class="value">{{humidity}}%</span> </br>
         <img alt="{{alt}}" src="{{src}}"/></br>
         {{desc}}
     </script>
