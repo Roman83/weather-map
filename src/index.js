@@ -29,8 +29,16 @@ function renderWeather(dataStr) {
   const data = JSON.parse(dataStr);
   console.log(data);
   weather.innerHTML = template({
-    title: data.name,
+    city: data.name,
+    country: data.sys.country,
     temp: data.main.temp,
+    humidity: data.main.humidity,
+    pressure: data.main.pressure,
+    alt: data.weather[0].description,
+    src: `http://openweathermap.org/img/w/${data.weather[0].icon}.png`,
+    desc: data.weather[0].description,
+    windspeed: data.wind.speed,
+    winddirection: data.wind.deg,
   });
 }
 
