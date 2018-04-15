@@ -27,7 +27,6 @@ function getWeather(lat, lon) {
 
 function renderWeather(dataStr) {
   const data = JSON.parse(dataStr);
-  console.log(data);
   weather.innerHTML = template({
     city: data.name,
     country: data.sys.country,
@@ -45,11 +44,11 @@ function renderWeather(dataStr) {
 ymaps.ready(() => {
   let placemark;
   const myMap = new ymaps.Map('map', {
-    center: [55.76, 99.64],
+    center: [55.76, 37.64],
     zoom: 7,
   });
+
   ymaps.geolocation.get().then((res) => {
-    console.log(res);
     const coords = res.geoObjects.position;
     myMap.setCenter(coords);
     return getWeather(...coords);
